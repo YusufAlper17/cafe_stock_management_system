@@ -1,0 +1,61 @@
+module.exports = [
+  {
+    files: ['src/**/*.js', 'public/js/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'module',
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
+        Buffer: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+        module: 'readonly',
+        require: 'readonly',
+        exports: 'readonly',
+        global: 'readonly',
+        Auth: 'readonly',
+        I18n: 'readonly',
+        ToastNotification: 'readonly',
+        describe: 'readonly',
+        it: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        jest: 'readonly'
+      }
+    },
+    rules: {
+      'no-console': 'warn',
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      'no-var': 'warn',
+      'prefer-const': 'warn',
+      'eqeqeq': 'warn',
+      'curly': 'warn',
+      'no-trailing-spaces': 'warn',
+      'no-multiple-empty-lines': ['warn', { max: 1 }],
+      'semi': ['warn', 'always'],
+      'quotes': ['warn', 'single', { avoidEscape: true }],
+      'indent': ['warn', 2],
+      'comma-dangle': ['warn', 'never'],
+      'object-curly-spacing': ['warn', 'always'],
+      'array-bracket-spacing': ['warn', 'never'],
+      'space-before-function-paren': 'off',
+      'keyword-spacing': 'warn',
+      'space-infix-ops': 'warn',
+      'space-before-blocks': 'warn',
+      'brace-style': ['warn', '1tbs'],
+      'camelcase': 'off',
+      'eol-last': 'warn',
+      'no-mixed-spaces-and-tabs': 'warn',
+      'no-multi-spaces': 'warn',
+      'padded-blocks': ['warn', 'never'],
+      'space-in-parens': ['warn', 'never'],
+      'space-unary-ops': 'warn',
+      'spaced-comment': ['warn', 'always']
+    }
+  }
+];

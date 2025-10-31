@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arşiv - Arzen Cafe</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar fixed-top">
+        <div class="container-fluid">
+            <button class="btn btn-link" id="toggleSidebar">
+                <i class="bi bi-list"></i>
+            </button>
+            <span class="navbar-brand">Arzen Cafe Arşiv</span>
+            <div class="d-flex align-items-center">
+                <span class="me-3" id="userInfo"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Logo -->
+        <div class="sidebar-logo">
+            <img src="images/logo.svg" alt="Arzen Cafe">
+            <span class="logo-text">Arzen Cafe</span>
+        </div>
+        
+        <!-- Main Menu -->
+        <ul class="sidebar-menu">
+            <li>
+                <a href="/dashboard" class="sidebar-menu-item">
+                    <i class="bi bi-speedometer2"></i><span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/sales" class="sidebar-menu-item">
+                    <i class="bi bi-cart3"></i><span>Satış</span>
+                </a>
+            </li>
+            <li>
+                <a href="/stock" class="sidebar-menu-item">
+                    <i class="bi bi-box-seam"></i><span>Stok</span>
+                </a>
+            </li>
+            <li>
+                <a href="/reports" class="sidebar-menu-item">
+                    <i class="bi bi-graph-up"></i><span>Raporlar</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archive" class="sidebar-menu-item active">
+                    <i class="bi bi-archive"></i><span>Arşiv</span>
+                </a>
+            </li>
+        </ul>
+        
+        <!-- Settings Section -->
+        <div class="sidebar-settings">
+            <a href="#" class="settings-item" id="toggleTheme">
+                <i class="bi bi-moon"></i><span>Tema</span>
+            </a>
+            <a href="#" class="settings-item" id="langToggle">
+                <i class="bi bi-translate"></i><span>Dil</span>
+            </a>
+            <a href="#" class="settings-item" id="logoutBtn">
+                <i class="bi bi-box-arrow-right"></i><span>Çıkış</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <div class="container-fluid">
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h3 mb-0 fw-bold">Arşiv Yönetimi</h1>
+                <div class="btn-group shadow-sm">
+                    <button class="btn btn-outline-primary" id="createArchive">
+                        <i class="bi bi-plus-lg me-2"></i>Yeni Arşiv Oluştur
+                    </button>
+                    <button class="btn btn-outline-success" id="exportArchive">
+                        <i class="bi bi-download me-2"></i>Arşiv İndir
+                    </button>
+                </div>
+            </div>
+
+            <!-- Archive Stats -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-primary bg-opacity-10 rounded-circle p-3">
+                                        <i class="bi bi-archive text-primary fs-4"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="card-title text-muted mb-1">Toplam Arşiv</h6>
+                                    <h4 class="mb-0 fw-bold" id="totalArchives">0</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-success bg-opacity-10 rounded-circle p-3">
+                                        <i class="bi bi-calendar-check text-success fs-4"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="card-title text-muted mb-1">Bu Ay</h6>
+                                    <h4 class="mb-0 fw-bold" id="monthlyArchives">0</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-warning bg-opacity-10 rounded-circle p-3">
+                                        <i class="bi bi-hdd text-warning fs-4"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="card-title text-muted mb-1">Toplam Boyut</h6>
+                                    <h4 class="mb-0 fw-bold" id="totalSize">0 MB</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-info bg-opacity-10 rounded-circle p-3">
+                                        <i class="bi bi-clock-history text-info fs-4"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="card-title text-muted mb-1">Son Arşiv</h6>
+                                    <h4 class="mb-0 fw-bold" id="lastArchive">-</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Archive List -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title fw-bold mb-0">Arşiv Listesi</h5>
+                        <div class="d-flex gap-2">
+                            <select class="form-select form-select-sm" id="archiveFilter" style="width: auto;">
+                                <option value="all">Tüm Arşivler</option>
+                                <option value="monthly">Aylık</option>
+                                <option value="yearly">Yıllık</option>
+                            </select>
+                            <button class="btn btn-sm btn-outline-secondary" id="refreshArchives">
+                                <i class="bi bi-arrow-clockwise"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Arşiv Adı</th>
+                                    <th>Tür</th>
+                                    <th>Dönem</th>
+                                    <th>Boyut</th>
+                                    <th>Oluşturulma</th>
+                                    <th>Durum</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody id="archivesTableBody">
+                                <!-- Archives will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Archive Modal -->
+    <div class="modal fade" id="createArchiveModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Yeni Arşiv Oluştur</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createArchiveForm">
+                        <div class="mb-3">
+                            <label class="form-label fw-medium">Arşiv Türü</label>
+                            <select class="form-select" id="archiveType" required>
+                                <option value="">Seçiniz</option>
+                                <option value="monthly">Aylık Arşiv</option>
+                                <option value="yearly">Yıllık Arşiv</option>
+                                <option value="custom">Özel Dönem</option>
+                            </select>
+                        </div>
+                        <div class="mb-3" id="customDateRange" style="display: none;">
+                            <label class="form-label fw-medium">Tarih Aralığı</label>
+                            <div class="row">
+                                <div class="col-6">
+                                    <input type="date" class="form-control" id="startDate">
+                                </div>
+                                <div class="col-6">
+                                    <input type="date" class="form-control" id="endDate">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-medium">Arşiv Adı</label>
+                            <input type="text" class="form-control" id="archiveName" placeholder="Otomatik oluşturulacak">
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="includeProducts" checked>
+                                <label class="form-check-label" for="includeProducts">
+                                    Ürün verilerini dahil et
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="includeSales" checked>
+                                <label class="form-check-label" for="includeSales">
+                                    Satış verilerini dahil et
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-primary" form="createArchiveForm">
+                        <i class="bi bi-plus-lg me-2"></i>Arşiv Oluştur
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/archive.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeBtn = document.getElementById('toggleTheme');
+            if (themeBtn) themeBtn.addEventListener('click', Theme.toggle);
+            
+            const langToggle = document.getElementById('langToggle');
+            if (langToggle) {
+                langToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const currentLang = document.documentElement.lang;
+                    const newLang = currentLang === 'tr' ? 'en' : 'tr';
+                    document.documentElement.lang = newLang;
+                    ToastNotification.info(`Dil değiştirildi: ${newLang.toUpperCase()}`);
+                });
+            }
+
+            // Sidebar hover behavior
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar) {
+                let hoverTimeout;
+                
+                sidebar.addEventListener('mouseenter', () => {
+                    clearTimeout(hoverTimeout);
+                    sidebar.classList.add('hovered');
+                });
+                
+                sidebar.addEventListener('mouseleave', () => {
+                    hoverTimeout = setTimeout(() => {
+                        sidebar.classList.remove('hovered');
+                    }, 100);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

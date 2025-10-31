@@ -1,0 +1,26 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" rx="12" fill="#1e293b"/>
+  <rect x="1" y="1" width="198" height="198" rx="11" stroke="#334155" stroke-width="2"/>
+  
+  <!-- Bread icon -->
+  <g transform="translate(60, 50)">
+    <ellipse cx="40" cy="30" rx="35" ry="15" fill="#d97706" stroke="#92400e" stroke-width="2"/>
+    <path d="M15 30 Q40 15 65 30" stroke="#92400e" stroke-width="2" fill="none"/>
+    <path d="M20 35 Q40 20 60 35" stroke="#92400e" stroke-width="1.5" fill="none"/>
+    <path d="M25 40 Q40 25 55 40" stroke="#92400e" stroke-width="1" fill="none"/>
+  </g>
+  
+  <!-- Product name placeholder -->
+  <rect x="20" y="120" width="160" height="12" rx="6" fill="#334155"/>
+  <rect x="20" y="140" width="120" height="10" rx="5" fill="#475569"/>
+  
+  <!-- Price placeholder -->
+  <rect x="20" y="160" width="80" height="10" rx="5" fill="#475569"/>
+  
+  <!-- Stock badge -->
+  <rect x="140" y="160" width="40" height="20" rx="10" fill="#3b82f6"/>
+  <text x="160" y="172" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10" font-weight="600">Stock</text>
+</svg>
+
+
+
