@@ -21,7 +21,12 @@ function getProductImageUrl(product, isDark) {
   const fallback = getCategoryImage(product?.category, isDark);
   const imageUrl = product?.image_url;
 
-  if (!imageUrl || imageUrl.includes('no-image')) {
+  if (
+    !imageUrl ||
+    imageUrl.includes('no-image') ||
+    imageUrl.includes('placeholder') ||
+    imageUrl.endsWith('.svg')
+  ) {
     return fallback;
   }
 
