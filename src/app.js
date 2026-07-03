@@ -71,6 +71,7 @@ app.get('/login', (req, res) => {
 
 // Initialize database and start server
 const PORT = process.env.PORT || 3000;
+const isVercel = process.env.VERCEL === '1';
 
 async function initializeApp() {
   try {
@@ -78,13 +79,17 @@ async function initializeApp() {
     await db.sequelize.sync();
     console.log('Database synchronized successfully.');
 
-    // Start server
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
+    // Start server only when not running on Vercel serverless
+    if (!isVercel) {
+      app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+      });
+    }
   } catch (error) {
     console.error('Failed to initialize app:', error);
-    process.exit(1);
+    if (!isVercel) {
+      process.exit(1);
+    }
   }
 }
 

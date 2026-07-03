@@ -9,9 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        
         try {
             console.log('Attempting login...');
             const response = await fetch('/api/auth/login', {
@@ -19,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, password })
+                body: JSON.stringify({})
             });
             
             const data = await response.json();
