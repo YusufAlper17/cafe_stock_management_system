@@ -10,6 +10,12 @@ const db = {};
 let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
+} else if (config.dialect === 'sqlite') {
+  const sqlite3 = require('sqlite3');
+  sequelize = new Sequelize({
+    ...config,
+    dialectModule: sqlite3
+  });
 } else {
   sequelize = new Sequelize(config);
 }
