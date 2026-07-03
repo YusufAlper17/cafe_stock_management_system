@@ -33,6 +33,9 @@
     "url": "https://github.com/yourusername/arzen/issues"
   },
   "homepage": "https://github.com/yourusername/arzen#readme",
+  "engines": {
+    "node": "20.x"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.8",
