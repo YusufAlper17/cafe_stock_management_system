@@ -61,23 +61,8 @@ function displayProducts(products) {
 
         // Set image with category-based and theme-aware fallback
         const isDarkTheme = document.documentElement.classList.contains('dark-theme');
-        const getCategoryImage = (category, isDark) => {
-            const categoryMap = {
-                'Bakery': isDark ? 'images/bakery-placeholder-dark.svg' : 'images/bakery-placeholder.svg',
-                'Coffee': isDark ? 'images/coffee-placeholder-dark.svg' : 'images/coffee-placeholder.svg',
-                'Dessert': isDark ? 'images/dessert-placeholder-dark.svg' : 'images/dessert-placeholder.svg',
-                'Pastry': isDark ? 'images/dessert-placeholder-dark.svg' : 'images/dessert-placeholder.svg',
-                'Sandwich': isDark ? 'images/sandwich-placeholder-dark.svg' : 'images/sandwich-placeholder.svg',
-                'Salad': isDark ? 'images/sandwich-placeholder-dark.svg' : 'images/sandwich-placeholder.svg',
-                'Hot Beverage': isDark ? 'images/coffee-placeholder-dark.svg' : 'images/coffee-placeholder.svg',
-                'Cold Beverage': isDark ? 'images/coffee-placeholder-dark.svg' : 'images/coffee-placeholder.svg',
-                'Snack': isDark ? 'images/dessert-placeholder-dark.svg' : 'images/dessert-placeholder.svg'
-            };
-            return categoryMap[category] || (isDark ? 'images/product-placeholder-dark.svg' : 'images/product-placeholder.svg');
-        };
-        
         const fallbackImage = getCategoryImage(product.category, isDarkTheme);
-        img.src = product.image_url || fallbackImage;
+        img.src = getProductImageUrl(product, isDarkTheme);
         img.onerror = function() { 
             this.src = fallbackImage; 
         };
@@ -143,7 +128,7 @@ function addToCart(product, quantity) {
             id: product.id,
             name: product.name,
             price: product.price,
-            image: product.image_url,
+            image: getProductImageUrl(product, document.documentElement.classList.contains('dark-theme')),
             quantity: quantity
         });
     }
@@ -192,8 +177,10 @@ function updateCart() {
         const decreaseBtn = clone.querySelector('.decrease-quantity');
         const increaseBtn = clone.querySelector('.increase-quantity');
 
-        img.src = item.image || 'images/no-image.svg';
-        img.onerror = function() { this.src = 'images/no-image.svg'; };
+        img.src = item.image;
+        img.onerror = function() {
+            this.src = getCategoryImage(null, document.documentElement.classList.contains('dark-theme'));
+        };
         img.alt = item.name;
         name.textContent = item.name;
         price.textContent = `${(item.price * item.quantity).toFixed(2)} ₺`;

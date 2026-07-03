@@ -2,22 +2,6 @@
 let salesChart = null;
 let dashboardData = {};
 
-// Get category-based image
-function getCategoryImage(category, isDark) {
-    const categoryMap = {
-        'Bakery': isDark ? 'images/bakery-placeholder-dark.svg' : 'images/bakery-placeholder.svg',
-        'Coffee': isDark ? 'images/coffee-placeholder-dark.svg' : 'images/coffee-placeholder.svg',
-        'Dessert': isDark ? 'images/dessert-placeholder-dark.svg' : 'images/dessert-placeholder.svg',
-        'Pastry': isDark ? 'images/dessert-placeholder-dark.svg' : 'images/dessert-placeholder.svg',
-        'Sandwich': isDark ? 'images/sandwich-placeholder-dark.svg' : 'images/sandwich-placeholder.svg',
-        'Salad': isDark ? 'images/sandwich-placeholder-dark.svg' : 'images/sandwich-placeholder.svg',
-        'Hot Beverage': isDark ? 'images/coffee-placeholder-dark.svg' : 'images/coffee-placeholder.svg',
-        'Cold Beverage': isDark ? 'images/coffee-placeholder-dark.svg' : 'images/coffee-placeholder.svg',
-        'Snack': isDark ? 'images/dessert-placeholder-dark.svg' : 'images/dessert-placeholder.svg'
-    };
-    return categoryMap[category] || (isDark ? 'images/product-placeholder-dark.svg' : 'images/product-placeholder.svg');
-}
-
 // Initialize dashboard
 document.addEventListener('DOMContentLoaded', async () => {
     try {
@@ -209,7 +193,7 @@ function updateRecentSales(sales) {
             </td>
             <td>
                 <div class="d-flex align-items-center">
-                    <img src="${sale.product?.image_url || getCategoryImage(sale.product?.category, document.documentElement.classList.contains('dark-theme'))}" 
+                    <img src="${getProductImageUrl(sale.product, document.documentElement.classList.contains('dark-theme'))}" 
                          alt="${sale.product?.name || 'Ürün'}" 
                          class="rounded me-2" 
                          style="width: 32px; height: 32px; object-fit: cover;"
@@ -246,7 +230,7 @@ function updateTopProducts(products) {
             </div>
             <div class="flex-grow-1 ms-3">
                 <div class="d-flex align-items-center">
-                    <img src="${product.image_url || getCategoryImage(product.category, document.documentElement.classList.contains('dark-theme'))}" 
+                    <img src="${getProductImageUrl(product, document.documentElement.classList.contains('dark-theme'))}" 
                          alt="${product.name}" 
                          class="rounded me-2" 
                          style="width: 32px; height: 32px; object-fit: cover;"

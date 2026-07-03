@@ -4,16 +4,16 @@ const db = require('../models');
 const { Store, User, Product, Sale, sequelize } = db;
 
 const MOCK_PRODUCTS = [
-  { name: 'Artisan Baguette', image_url: 'images/no-image.svg', cost_price: 1.2, price: 3.5, category: 'Bakery', stock: 50 },
-  { name: 'Sourdough Bread', image_url: 'images/no-image.svg', cost_price: 1.8, price: 5.0, category: 'Bakery', stock: 30 },
-  { name: 'Croissant', image_url: 'images/no-image.svg', cost_price: 1.3, price: 3.8, category: 'Bakery', stock: 40 },
-  { name: 'Espresso', image_url: 'images/no-image.svg', cost_price: 0.8, price: 2.5, category: 'Coffee', stock: 100 },
-  { name: 'Cappuccino', image_url: 'images/no-image.svg', cost_price: 1.5, price: 4.5, category: 'Coffee', stock: 80 },
-  { name: 'Latte', image_url: 'images/no-image.svg', cost_price: 1.7, price: 5.0, category: 'Coffee', stock: 60 },
-  { name: 'Blueberry Muffin', image_url: 'images/no-image.svg', cost_price: 1.2, price: 3.5, category: 'Pastry', stock: 25 },
-  { name: 'Cheesecake Slice', image_url: 'images/no-image.svg', cost_price: 2.5, price: 6.5, category: 'Dessert', stock: 15 },
-  { name: 'Turkey Club Sandwich', image_url: 'images/no-image.svg', cost_price: 3.5, price: 8.5, category: 'Sandwich', stock: 20 },
-  { name: 'Caesar Salad', image_url: 'images/no-image.svg', cost_price: 2.8, price: 6.8, category: 'Salad', stock: 18 }
+  { name: 'Artisan Baguette', cost_price: 1.2, price: 3.5, category: 'Bakery', stock: 50 },
+  { name: 'Sourdough Bread', cost_price: 1.8, price: 5.0, category: 'Bakery', stock: 30 },
+  { name: 'Croissant', cost_price: 1.3, price: 3.8, category: 'Bakery', stock: 40 },
+  { name: 'Espresso', cost_price: 0.8, price: 2.5, category: 'Coffee', stock: 100 },
+  { name: 'Cappuccino', cost_price: 1.5, price: 4.5, category: 'Coffee', stock: 80 },
+  { name: 'Latte', cost_price: 1.7, price: 5.0, category: 'Coffee', stock: 60 },
+  { name: 'Blueberry Muffin', cost_price: 1.2, price: 3.5, category: 'Pastry', stock: 25 },
+  { name: 'Cheesecake Slice', cost_price: 2.5, price: 6.5, category: 'Dessert', stock: 15 },
+  { name: 'Turkey Club Sandwich', cost_price: 3.5, price: 8.5, category: 'Sandwich', stock: 20 },
+  { name: 'Caesar Salad', cost_price: 2.8, price: 6.8, category: 'Salad', stock: 18 }
 ];
 
 async function seedMockDataIfNeeded() {

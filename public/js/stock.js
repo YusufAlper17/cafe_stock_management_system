@@ -41,22 +41,6 @@ async function loadProducts() {
     }
 }
 
-// Get category-based image
-function getCategoryImage(category, isDark) {
-    const categoryMap = {
-        'Bakery': isDark ? 'images/bakery-placeholder-dark.svg' : 'images/bakery-placeholder.svg',
-        'Coffee': isDark ? 'images/coffee-placeholder-dark.svg' : 'images/coffee-placeholder.svg',
-        'Dessert': isDark ? 'images/dessert-placeholder-dark.svg' : 'images/dessert-placeholder.svg',
-        'Pastry': isDark ? 'images/dessert-placeholder-dark.svg' : 'images/dessert-placeholder.svg',
-        'Sandwich': isDark ? 'images/sandwich-placeholder-dark.svg' : 'images/sandwich-placeholder.svg',
-        'Salad': isDark ? 'images/sandwich-placeholder-dark.svg' : 'images/sandwich-placeholder.svg',
-        'Hot Beverage': isDark ? 'images/coffee-placeholder-dark.svg' : 'images/coffee-placeholder.svg',
-        'Cold Beverage': isDark ? 'images/coffee-placeholder-dark.svg' : 'images/coffee-placeholder.svg',
-        'Snack': isDark ? 'images/dessert-placeholder-dark.svg' : 'images/dessert-placeholder.svg'
-    };
-    return categoryMap[category] || (isDark ? 'images/product-placeholder-dark.svg' : 'images/product-placeholder.svg');
-}
-
 // Display products
 function displayProducts(products) {
     const tbody = document.getElementById('productsTableBody');
@@ -66,10 +50,10 @@ function displayProducts(products) {
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td>
-                <img src="${product.image_url || getCategoryImage(product.category, document.documentElement.classList.contains('dark-theme'))}" 
+                <img src="${getProductImageUrl(product, document.documentElement.classList.contains('dark-theme'))}" 
                      alt="${product.name}"
                      class="product-image-preview rounded"
-                     onerror="this.src='${getCategoryImage(product.category, document.documentElement.classList.contains('dark-theme'))}'">
+                     onerror="this.src='${getProductImageUrl({ category: product.category }, document.documentElement.classList.contains('dark-theme'))}'">
             </td>
             <td>${product.name}</td>
             <td>
@@ -149,9 +133,10 @@ function openEditModal(product) {
     document.getElementById('editStockQty').value = product.stock;
     document.getElementById('editCostPrice').value = product.cost_price || '';
     document.getElementById('editSalePrice').value = product.price;
-    const isDarkTheme = document.documentElement.classList.contains('dark-theme');
-    const fallbackImage = getCategoryImage(product.category, isDarkTheme);
-    document.getElementById('editImagePreview').src = product.image_url || fallbackImage;
+    document.getElementById('editImagePreview').src = getProductImageUrl(
+      product,
+      document.documentElement.classList.contains('dark-theme')
+    );
 
     const modal = new bootstrap.Modal(document.getElementById('editProductModal'));
     modal.show();
