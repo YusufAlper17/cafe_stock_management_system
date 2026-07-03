@@ -4,8 +4,55 @@ const cors = require('cors');
 const db = require('./models');
 const path = require('path');
 const helmet = require('helmet');
+const { seedMockDataIfNeeded } = require('./utils/seedMockData');
 
 const app = express();
+const PORT = process.env.PORT || 3000;
+const isVercel = process.env.VERCEL === '1';
+let initPromise = null;
+
+async function initializeApp() {
+  await db.sequelize.sync();
+  console.log('Database synchronized successfully.');
+  await seedMockDataIfNeeded();
+
+  if (!isVercel) {
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  }
+}
+
+function ensureInitialized() {
+  if (!initPromise) {
+    initPromise = initializeApp().catch(error => {
+      initPromise = null;
+      console.error('Failed to initialize app:', error);
+      if (!isVercel) {
+        process.exit(1);
+      }
+      throw error;
+    });
+  }
+  return initPromise;
+}
+
+if (process.env.NODE_ENV !== 'test') {
+  ensureInitialized();
+}
+
+app.use(async (req, res, next) => {
+  if (process.env.NODE_ENV === 'test') {
+    return next();
+  }
+
+  try {
+    await ensureInitialized();
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
 // Basic security headers
 app.use(helmet());
@@ -68,34 +115,5 @@ app.get('/archive', (req, res) => {
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/login.html'));
 });
-
-// Initialize database and start server
-const PORT = process.env.PORT || 3000;
-const isVercel = process.env.VERCEL === '1';
-
-async function initializeApp() {
-  try {
-    // Sync database
-    await db.sequelize.sync();
-    console.log('Database synchronized successfully.');
-
-    // Start server only when not running on Vercel serverless
-    if (!isVercel) {
-      app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-      });
-    }
-  } catch (error) {
-    console.error('Failed to initialize app:', error);
-    if (!isVercel) {
-      process.exit(1);
-    }
-  }
-}
-
-// Only start server if not in test environment
-if (process.env.NODE_ENV !== 'test') {
-  initializeApp();
-}
 
 module.exports = app;
